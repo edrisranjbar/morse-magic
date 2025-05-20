@@ -1,5 +1,8 @@
+export interface MorseSymbol {
+  type: 'dot' | 'dash' | 'space';
+}
 
-export const morseCodeMap: Record<string, string> = {
+const morseCodeMap: { [key: string]: string } = {
   'A': '.-',
   'B': '-...',
   'C': '-.-.',
@@ -39,46 +42,47 @@ export const morseCodeMap: Record<string, string> = {
   '.': '.-.-.-',
   ',': '--..--',
   '?': '..--..',
-  "'": '.----.',
   '!': '-.-.--',
-  '/': '-..-.',
-  '(': '-.--.',
-  ')': '-.--.-',
-  '&': '.-...',
-  ':': '---...',
-  ';': '-.-.-.',
-  '=': '-...-',
-  '+': '.-.-.',
-  '-': '-....-',
-  '_': '..--.-',
-  '"': '.-..-.',
-  '$': '...-..-',
-  '@': '.--.-.',
-  ' ': '/'
+  ' ': ' ',
 };
+
+// Create reverse mapping for decoding
+const reverseMorseCodeMap: { [key: string]: string } = Object.entries(morseCodeMap).reduce(
+  (acc, [char, morse]) => ({
+    ...acc,
+    [morse]: char
+  }),
+  {}
+);
 
 export const textToMorse = (text: string): string => {
   return text
     .toUpperCase()
     .split('')
-    .map((char) => morseCodeMap[char] || char)
+    .map(char => morseCodeMap[char] || char)
     .join(' ');
 };
 
-export interface MorseSymbol {
-  type: 'dot' | 'dash' | 'space' | 'char-space';
-}
+export const morseToText = (morse: string): string => {
+  return morse
+    .trim()
+    .split(' ')
+    .map(code => {
+      if (code === '') return ' ';
+      const char = reverseMorseCodeMap[code];
+      if (!char) throw new Error(`Invalid Morse code: ${code}`);
+      return char;
+    })
+    .join('')
+    .trim();
+};
 
 export const parseToSymbols = (morse: string): MorseSymbol[][] => {
-  return morse.split(' ').map((charMorse) => {
-    if (charMorse === '/') {
-      return [{ type: 'space' }];
-    }
-    
-    return charMorse.split('').map((symbol) => {
-      if (symbol === '.') return { type: 'dot' };
-      if (symbol === '-') return { type: 'dash' };
-      return { type: 'char-space' };
-    });
-  });
+  return morse
+    .split(' ')
+    .map(char =>
+      char.split('').map(symbol => ({
+        type: symbol === '.' ? 'dot' : symbol === '-' ? 'dash' : 'space'
+      }))
+    );
 };

@@ -1,73 +1,100 @@
-# Welcome to your Lovable project
+# Morse Magic
 
-## Project info
+A modern, interactive Morse code converter built with React and TypeScript. Convert text to Morse code and vice versa with real-time visualization, audio playback, and an interactive telegraph key.
 
-**URL**: https://lovable.dev/projects/7ab55dd5-3dda-4762-b86a-de84c4877f25
+![Morse Magic Screenshot](./screenshot.png)
 
-## How can I edit this code?
+## Features
 
-There are several ways of editing your application.
+- **Two-way Conversion**
+  - Text to Morse code
+  - Morse code to text
+  - Real-time conversion and validation
 
-**Use Lovable**
+- **Interactive Visualization**
+  - Visual representation of dots and dashes
+  - Multiple animation presets
+  - Dark mode support
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/7ab55dd5-3dda-4762-b86a-de84c4877f25) and start prompting.
+- **Audio Features**
+  - Real-time audio playback
+  - Interactive telegraph key
+  - Visual waveform display
+  - Adjustable timing and feedback
 
-Changes made via Lovable will be committed automatically to this repo.
+- **Modern UI/UX**
+  - Clean, responsive design
+  - Keyboard shortcuts
+  - Copy to clipboard
+  - Error handling and feedback
+  - Accessible interface
 
-**Use your preferred IDE**
+## Tech Stack
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
+- React 18
 - TypeScript
-- React
-- shadcn-ui
 - Tailwind CSS
+- Shadcn/ui
+- Web Audio API
+- Vite
 
-## How can I deploy this project?
+## Getting Started
 
-Simply open [Lovable](https://lovable.dev/projects/7ab55dd5-3dda-4762-b86a-de84c4877f25) and click on Share -> Publish.
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/edrisranjbar/morse-magic-web.git
+   cd morse-magic-web
+   ```
 
-## Can I connect a custom domain to my Lovable project?
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-Yes, you can!
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+4. Build for production:
+   ```bash
+   npm run build
+   ```
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+## Usage
+
+1. **Text to Morse**
+   - Type or paste text in the input field
+   - See real-time Morse code conversion
+   - Use the play button to hear the code
+   - Copy the result to clipboard
+
+2. **Morse to Text**
+   - Switch to decode mode
+   - Enter Morse code using dots (.) and dashes (-)
+   - See real-time text conversion
+
+3. **Telegraph Key**
+   - Use the interactive key interface
+   - Short press for dots, long press for dashes
+   - See and hear your input in real-time
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Author
+
+**Edris Ranjbar**
+- Website: [en.edrisranjbar.ir](https://en.edrisranjbar.ir)
+- GitHub: [@edrisranjbar](https://github.com/edrisranjbar)
+
+## Acknowledgments
+
+- Inspired by the history of Morse code and telegraph communication
+- Built with modern web technologies and best practices
+- Special thanks to the open-source community
