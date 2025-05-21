@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
-import { ArrowRight, Sparkles, Zap, Brain, Volume2, Code2, Blocks } from "lucide-react";
+import { ArrowRight, Sparkles, Zap, Brain, Volume2, Code2, Blocks, PlayCircle, InfoIcon } from "lucide-react";
 import { Helmet } from 'react-helmet-async';
 
 const Index = () => {
@@ -92,14 +92,15 @@ const Index = () => {
               </div>
 
               <div className="flex items-center justify-center gap-4">
-                <Button asChild size="lg">
-                  <Link to="/learn">
-                    Start Learning
-                    <ArrowRight className="ml-2 size-4" />
+                <Button asChild size="lg" className="w-full sm:w-auto group">
+                  <Link to="/convert" className="flex items-center justify-center gap-2">
+                    <PlayCircle className="size-5 group-hover:animate-pulse" />
+                    Try Morse Code
                   </Link>
                 </Button>
-                <Button asChild variant="outline" size="lg">
-                  <Link to="/about">
+                <Button asChild variant="outline" size="lg" className="w-full sm:w-auto group">
+                  <Link to="/about" className="flex items-center justify-center gap-2">
+                    <InfoIcon className="size-5 group-hover:rotate-12 transition-transform duration-200" />
                     Learn More
                   </Link>
                 </Button>
@@ -139,26 +140,41 @@ const Index = () => {
 
         {/* CTA Section */}
         <div className="container mx-auto px-4 py-16">
-          <Card className="relative overflow-hidden border-0 bg-primary text-primary-foreground">
+          <Card className="relative overflow-hidden border-0 bg-gradient-to-br from-zinc-900 via-slate-900 to-zinc-900 text-white">
             <CardContent className="relative z-10 p-12 text-center">
-              <h2 className="text-3xl font-bold mb-4">Ready to get started?</h2>
-              <p className="text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-                Join thousands of others who are learning Morse code the modern way. 
-                Start your journey today with our interactive learning platform.
-              </p>
-              <Button asChild size="lg" variant="secondary">
-                <Link to="/learn">
-                  Begin Your Journey
-                  <ArrowRight className="ml-2 size-4" />
-                </Link>
-              </Button>
+              <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_30%_50%,rgba(56,189,248,0.1),transparent_30%),radial-gradient(circle_at_70%_50%,rgba(168,85,247,0.1),transparent_30%)]" />
+              <div className="relative space-y-8">
+                <div className="mx-auto w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-500 rounded-2xl rotate-12 flex items-center justify-center shadow-xl">
+                  <Sparkles className="size-8 text-white rotate-[-12deg]" />
+                </div>
+                <div>
+                  <h2 className="text-3xl font-bold mb-4 bg-gradient-to-r from-blue-400 via-purple-400 to-blue-400 text-transparent bg-clip-text">
+                    Ready to Start Your Morse Code Journey?
+                  </h2>
+                  <p className="text-zinc-300 mb-8 max-w-2xl mx-auto">
+                    Whether you're a beginner or looking to enhance your skills, our interactive platform makes learning Morse code engaging and effective. Start converting, practicing, and mastering Morse code today.
+                  </p>
+                </div>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Button asChild size="lg" className="w-full sm:w-auto bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 border-0 text-white">
+                    <Link to="/learn" className="flex items-center justify-center">
+                      Start Learning
+                      <ArrowRight className="ml-2 size-4" />
+                    </Link>
+                  </Button>
+                  <Button asChild size="lg" variant="outline" className="w-full sm:w-auto border-zinc-700 hover:bg-zinc-800/50 text-zinc-300 hover:text-white">
+                    <Link to="/convert" className="flex items-center justify-center">
+                      Try Converter
+                      <ArrowRight className="ml-2 size-4" />
+                    </Link>
+                  </Button>
+                </div>
+              </div>
             </CardContent>
-            {/* Decorative dots pattern */}
-            <div className="absolute inset-0 opacity-10">
-              <div className="h-full w-full" style={{ 
-                backgroundImage: `url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='1' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E")` 
-              }} />
-            </div>
+            {/* Decorative elements */}
+            <div className="absolute top-1/2 left-0 -translate-y-1/2 w-24 h-24 bg-blue-500/10 rounded-full blur-2xl" />
+            <div className="absolute top-1/2 right-0 -translate-y-1/2 w-24 h-24 bg-purple-500/10 rounded-full blur-2xl" />
+            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl" />
           </Card>
         </div>
       </div>
