@@ -71,22 +71,6 @@ const Index = () => {
 
           {/* Decorative Elements */}
           <div className="absolute inset-0 -z-10 overflow-hidden">
-            {/* Morse Code Dots and Dashes Animation */}
-            <div className="absolute top-1/4 left-10 hidden lg:block">
-              <div className="flex items-center gap-2 opacity-20">
-                <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-                <div className="w-6 h-2 rounded-full bg-primary animate-pulse [animation-delay:150ms]" />
-                <div className="w-2 h-2 rounded-full bg-primary animate-pulse [animation-delay:300ms]" />
-              </div>
-            </div>
-            <div className="absolute top-1/3 right-10 hidden lg:block">
-              <div className="flex items-center gap-2 opacity-20">
-                <div className="w-6 h-2 rounded-full bg-primary animate-pulse" />
-                <div className="w-2 h-2 rounded-full bg-primary animate-pulse [animation-delay:150ms]" />
-                <div className="w-6 h-2 rounded-full bg-primary animate-pulse [animation-delay:300ms]" />
-              </div>
-            </div>
-
             {/* Gradient Blobs */}
             <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl animate-blob" />
             <div className="absolute top-1/3 right-1/4 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl animate-blob [animation-delay:2s]" />
@@ -112,9 +96,6 @@ const Index = () => {
                   Master Morse Code
                   <br className="hidden sm:block" />
                   The Modern Way
-                  <div className="absolute -right-4 top-0 text-primary/20 rotate-12 hidden lg:block">
-                    <code className="text-xs tracking-widest">• • • --- • • •</code>
-                  </div>
                 </h1>
                 <p className="text-base sm:text-lg leading-8 text-muted-foreground px-4 sm:px-0 relative">
                   Learn, practice, and master Morse code with our interactive platform. 
