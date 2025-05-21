@@ -69,6 +69,30 @@ const Index = () => {
             }} />
           </div>
 
+          {/* Decorative Elements */}
+          <div className="absolute inset-0 -z-10 overflow-hidden">
+            {/* Morse Code Dots and Dashes Animation */}
+            <div className="absolute top-1/4 left-10 hidden lg:block">
+              <div className="flex items-center gap-2 opacity-20">
+                <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                <div className="w-6 h-2 rounded-full bg-primary animate-pulse [animation-delay:150ms]" />
+                <div className="w-2 h-2 rounded-full bg-primary animate-pulse [animation-delay:300ms]" />
+              </div>
+            </div>
+            <div className="absolute top-1/3 right-10 hidden lg:block">
+              <div className="flex items-center gap-2 opacity-20">
+                <div className="w-6 h-2 rounded-full bg-primary animate-pulse" />
+                <div className="w-2 h-2 rounded-full bg-primary animate-pulse [animation-delay:150ms]" />
+                <div className="w-6 h-2 rounded-full bg-primary animate-pulse [animation-delay:300ms]" />
+              </div>
+            </div>
+
+            {/* Gradient Blobs */}
+            <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl animate-blob" />
+            <div className="absolute top-1/3 right-1/4 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl animate-blob [animation-delay:2s]" />
+            <div className="absolute bottom-1/4 left-1/3 w-64 h-64 bg-primary/10 rounded-full blur-3xl animate-blob [animation-delay:4s]" />
+          </div>
+
           {/* Gradient Overlay */}
           <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-background to-transparent" />
           <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-background to-transparent" />
@@ -76,26 +100,34 @@ const Index = () => {
           <div className="container mx-auto px-4 py-12 sm:py-24 lg:py-32">
             <div className="text-center space-y-6 sm:space-y-8">
               <div className="relative inline-flex items-center gap-2 rounded-full px-4 py-1 text-sm leading-6 text-muted-foreground ring-1 ring-border hover:ring-foreground/20 duration-150">
-                <span>Discover the art of Morse code</span>
+                <span className="relative">
+                  <span className="absolute -left-1 top-1/2 h-[2px] w-3 bg-primary/50 -translate-y-1/2 rounded-full animate-morse-dash" />
+                  <span className="absolute -right-1 top-1/2 h-[2px] w-1 bg-primary/50 -translate-y-1/2 rounded-full animate-morse-dot" />
+                  Discover the art of Morse code
+                </span>
               </div>
               
               <div className="mx-auto max-w-2xl space-y-4">
-                <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/50">
+                <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/50 relative">
                   Master Morse Code
                   <br className="hidden sm:block" />
                   The Modern Way
+                  <div className="absolute -right-4 top-0 text-primary/20 rotate-12 hidden lg:block">
+                    <code className="text-xs tracking-widest">• • • --- • • •</code>
+                  </div>
                 </h1>
-                <p className="text-base sm:text-lg leading-8 text-muted-foreground px-4 sm:px-0">
+                <p className="text-base sm:text-lg leading-8 text-muted-foreground px-4 sm:px-0 relative">
                   Learn, practice, and master Morse code with our interactive platform. 
                   Perfect for beginners and experienced users alike.
                 </p>
               </div>
 
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 px-4 sm:px-0">
-                <Button asChild size="lg" className="w-full sm:w-auto group">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 px-4 sm:px-0 relative">
+                <Button asChild size="lg" className="w-full sm:w-auto group relative overflow-hidden">
                   <Link to="/convert" className="flex items-center justify-center gap-2">
                     <PlayCircle className="size-5 group-hover:animate-pulse" />
                     Try Morse Code
+                    <span className="absolute inset-0 bg-primary/10 group-hover:animate-wave" />
                   </Link>
                 </Button>
                 <Button asChild variant="outline" size="lg" className="w-full sm:w-auto group">
@@ -183,3 +215,40 @@ const Index = () => {
 };
 
 export default Index;
+
+// Add these styles at the end of the file
+const style = document.createElement('style');
+style.textContent = `
+  @keyframes wave {
+    0% { transform: translateY(100%); opacity: 0; }
+    50% { transform: translateY(0); opacity: 0.5; }
+    100% { transform: translateY(-100%); opacity: 0; }
+  }
+  @keyframes blob {
+    0% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(30px, -50px) scale(1.1); }
+    66% { transform: translate(-20px, 20px) scale(0.9); }
+    100% { transform: translate(0, 0) scale(1); }
+  }
+  @keyframes morse-dot {
+    0%, 100% { opacity: 0.2; }
+    50% { opacity: 1; }
+  }
+  @keyframes morse-dash {
+    0%, 100% { opacity: 0.2; width: 12px; }
+    50% { opacity: 1; width: 16px; }
+  }
+  .animate-wave {
+    animation: wave 2s infinite;
+  }
+  .animate-blob {
+    animation: blob 7s infinite;
+  }
+  .animate-morse-dot {
+    animation: morse-dot 1.5s infinite;
+  }
+  .animate-morse-dash {
+    animation: morse-dash 1.5s infinite;
+  }
+`;
+document.head.appendChild(style);
