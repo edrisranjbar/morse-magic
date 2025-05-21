@@ -10,9 +10,10 @@ const Header = () => {
   const location = useLocation();
 
   const navItems = [
-    { path: "/", label: "Convert" },
+    { path: "/", label: "Home" },
+    { path: "/convert", label: "Convert" },
     { path: "/learn", label: "Learn" },
-    { path: "/history", label: "History" }
+    { path: "/about", label: "About" }
   ];
 
   const isActive = (path: string) => {
@@ -22,16 +23,18 @@ const Header = () => {
   };
 
   return (
-    <header className="border-b">
+    <header className="border-b sticky top-0 bg-background/80 backdrop-blur-sm z-50">
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center gap-2">
-          <div className="relative size-8">
-            <div className="absolute inset-0 bg-primary/20 rounded-full animate-ping" />
-            <div className="relative size-8 bg-primary rounded-full flex items-center justify-center">
-              <span className="text-primary-foreground font-mono text-sm">M</span>
+          <Link to="/" className="flex items-center gap-2 hover:opacity-90 transition-opacity">
+            <div className="relative size-8">
+              <div className="absolute inset-0 bg-primary/20 rounded-full animate-ping" />
+              <div className="relative size-8 bg-primary rounded-full flex items-center justify-center">
+                <span className="text-primary-foreground font-mono text-sm">M</span>
+              </div>
             </div>
-          </div>
-          <h1 className="text-xl font-semibold">Morse Magic</h1>
+            <h1 className="text-xl font-semibold">Morse Magic</h1>
+          </Link>
         </div>
         <nav className="flex items-center gap-6">
           {navItems.map(({ path, label }) => (
