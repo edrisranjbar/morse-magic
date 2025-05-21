@@ -2,7 +2,7 @@ export interface MorseSymbol {
   type: 'dot' | 'dash' | 'space';
 }
 
-const morseCodeMap: { [key: string]: string } = {
+export const morseCodeMap: { [key: string]: string } = {
   'A': '.-',
   'B': '-...',
   'C': '-.-.',

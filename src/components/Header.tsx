@@ -1,6 +1,7 @@
 import { Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/hooks/useTheme";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const { theme, toggleTheme } = useTheme();
@@ -17,6 +18,17 @@ const Header = () => {
           </div>
           <h1 className="text-xl font-semibold">Morse Magic</h1>
         </div>
+        <nav className="flex items-center gap-6">
+          <Link to="/" className="hover:text-primary transition-colors">
+            Convert
+          </Link>
+          <Link to="/learn" className="hover:text-primary transition-colors">
+            Learn
+          </Link>
+          <Link to="/history" className="hover:text-primary transition-colors">
+            History
+          </Link>
+        </nav>
         <Button
           variant="ghost"
           size="icon"
