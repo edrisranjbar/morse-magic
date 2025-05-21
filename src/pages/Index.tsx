@@ -59,11 +59,11 @@ const Index = () => {
         <meta property="twitter:description" content="Master Morse code the modern way with our interactive learning platform." />
       </Helmet>
 
-      <div className="min-h-[calc(100vh-4rem)] flex flex-col">
+      <div className="min-h-[calc(100vh-4rem)] flex flex-col overflow-x-hidden">
         {/* Hero Section */}
-        <div className="flex-1 relative isolate overflow-hidden">
+        <div className="flex-1 relative isolate">
           {/* Background Pattern */}
-          <div className="absolute inset-0 -z-10 opacity-[0.03]">
+          <div className="absolute inset-0 -z-10 opacity-[0.03] overflow-hidden">
             <div className="h-full w-full" style={{ 
               backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")` 
             }} />
@@ -73,25 +73,25 @@ const Index = () => {
           <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-background to-transparent" />
           <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-background to-transparent" />
 
-          <div className="container mx-auto px-4 py-24 sm:py-32">
-            <div className="text-center space-y-8">
+          <div className="container mx-auto px-4 py-12 sm:py-24 lg:py-32">
+            <div className="text-center space-y-6 sm:space-y-8">
               <div className="relative inline-flex items-center gap-2 rounded-full px-4 py-1 text-sm leading-6 text-muted-foreground ring-1 ring-border hover:ring-foreground/20 duration-150">
                 <span>Discover the art of Morse code</span>
               </div>
               
               <div className="mx-auto max-w-2xl space-y-4">
-                <h1 className="text-4xl font-bold tracking-tight sm:text-6xl bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/50">
+                <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/50">
                   Master Morse Code
-                  <br />
+                  <br className="hidden sm:block" />
                   The Modern Way
                 </h1>
-                <p className="text-lg leading-8 text-muted-foreground">
+                <p className="text-base sm:text-lg leading-8 text-muted-foreground px-4 sm:px-0">
                   Learn, practice, and master Morse code with our interactive platform. 
                   Perfect for beginners and experienced users alike.
                 </p>
               </div>
 
-              <div className="flex items-center justify-center gap-4">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 px-4 sm:px-0">
                 <Button asChild size="lg" className="w-full sm:w-auto group">
                   <Link to="/convert" className="flex items-center justify-center gap-2">
                     <PlayCircle className="size-5 group-hover:animate-pulse" />
@@ -110,15 +110,15 @@ const Index = () => {
         </div>
 
         {/* Features Section */}
-        <div className="container mx-auto px-4 py-24">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold">Everything you need to master Morse code</h2>
-            <p className="mt-4 text-lg text-muted-foreground">
+        <div className="container mx-auto px-4 py-12 sm:py-24">
+          <div className="text-center mb-8 sm:mb-16">
+            <h2 className="text-2xl sm:text-3xl font-bold">Everything you need to master Morse code</h2>
+            <p className="mt-4 text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
               Comprehensive tools and features to help you learn and practice effectively
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {features.map((feature) => (
               <Card key={feature.title} className="group relative overflow-hidden border bg-background/50 backdrop-blur supports-[backdrop-filter]:bg-background/50">
                 <CardContent className="p-6">
@@ -128,7 +128,7 @@ const Index = () => {
                     </div>
                     <h3 className="font-semibold">{feature.title}</h3>
                   </div>
-                  <p className="text-muted-foreground">
+                  <p className="text-muted-foreground text-sm sm:text-base">
                     {feature.description}
                   </p>
                 </CardContent>
@@ -139,7 +139,7 @@ const Index = () => {
         </div>
 
         {/* CTA Section */}
-        <div className="container mx-auto px-4 py-16">
+        <div className="container mx-auto px-4 py-12 sm:py-16">
           <Card className="relative overflow-hidden border-0 bg-gradient-to-br from-zinc-900 via-slate-900 to-zinc-900 text-white">
             <CardContent className="relative z-10 p-12 text-center">
               <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_30%_50%,rgba(56,189,248,0.1),transparent_30%),radial-gradient(circle_at_70%_50%,rgba(168,85,247,0.1),transparent_30%)]" />

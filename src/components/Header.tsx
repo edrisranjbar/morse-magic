@@ -1,13 +1,15 @@
-import { Moon, Sun } from "lucide-react";
+import { Moon, Sun, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/hooks/useTheme";
 import { Link, useLocation } from "react-router-dom";
 import { SettingsDialog } from "@/components/ui/settings-dialog";
 import { cn } from "@/lib/utils";
+import { useState } from "react";
 
 const Header = () => {
   const { theme, toggleTheme } = useTheme();
   const location = useLocation();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navItems = [
     { path: "/", label: "Home" },
@@ -36,7 +38,9 @@ const Header = () => {
             <h1 className="text-xl font-semibold">Morse Magic</h1>
           </Link>
         </div>
-        <nav className="flex items-center gap-6">
+
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex items-center gap-6">
           {navItems.map(({ path, label }) => (
             <Link
               key={path}
@@ -53,6 +57,7 @@ const Header = () => {
             </Link>
           ))}
         </nav>
+
         <div className="flex items-center gap-2">
           <SettingsDialog />
           <Button
@@ -68,7 +73,46 @@ const Header = () => {
             )}
             <span className="sr-only">Toggle theme</span>
           </Button>
+          
+          {/* Mobile Menu Button */}
+          <Button
+            variant="ghost"
+            size="icon"
+            className="md:hidden"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            {isMenuOpen ? (
+              <X className="size-5" />
+            ) : (
+              <Menu className="size-5" />
+            )}
+            <span className="sr-only">Toggle menu</span>
+          </Button>
         </div>
+      </div>
+
+      {/* Mobile Navigation */}
+      <div className={cn(
+        "md:hidden",
+        isMenuOpen ? "block" : "hidden"
+      )}>
+        <nav className="container py-4 flex flex-col gap-2 border-t bg-background/80 backdrop-blur-sm">
+          {navItems.map(({ path, label }) => (
+            <Link
+              key={path}
+              to={path}
+              onClick={() => setIsMenuOpen(false)}
+              className={cn(
+                "px-4 py-2 rounded-md transition-colors",
+                isActive(path)
+                  ? "bg-primary/10 text-primary font-medium"
+                  : "hover:bg-muted"
+              )}
+            >
+              {label}
+            </Link>
+          ))}
+        </nav>
       </div>
     </header>
   );
