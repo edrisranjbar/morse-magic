@@ -1,11 +1,25 @@
 import { Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/hooks/useTheme";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { SettingsDialog } from "@/components/ui/settings-dialog";
+import { cn } from "@/lib/utils";
 
 const Header = () => {
   const { theme, toggleTheme } = useTheme();
+  const location = useLocation();
+
+  const navItems = [
+    { path: "/", label: "Convert" },
+    { path: "/learn", label: "Learn" },
+    { path: "/history", label: "History" }
+  ];
+
+  const isActive = (path: string) => {
+    if (path === "/" && location.pathname === "/") return true;
+    if (path !== "/" && location.pathname.startsWith(path)) return true;
+    return false;
+  };
 
   return (
     <header className="border-b">
@@ -20,15 +34,21 @@ const Header = () => {
           <h1 className="text-xl font-semibold">Morse Magic</h1>
         </div>
         <nav className="flex items-center gap-6">
-          <Link to="/" className="hover:text-primary transition-colors">
-            Convert
-          </Link>
-          <Link to="/learn" className="hover:text-primary transition-colors">
-            Learn
-          </Link>
-          <Link to="/history" className="hover:text-primary transition-colors">
-            History
-          </Link>
+          {navItems.map(({ path, label }) => (
+            <Link
+              key={path}
+              to={path}
+              className={cn(
+                "transition-colors relative py-1",
+                isActive(path)
+                  ? "text-primary font-medium"
+                  : "hover:text-primary/80",
+                isActive(path) && "after:absolute after:left-0 after:right-0 after:-bottom-[1.125rem] after:h-0.5 after:bg-primary after:rounded-full"
+              )}
+            >
+              {label}
+            </Link>
+          ))}
         </nav>
         <div className="flex items-center gap-2">
           <SettingsDialog />
