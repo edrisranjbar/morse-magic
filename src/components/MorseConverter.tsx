@@ -4,13 +4,14 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from 'sonner';
-import { Copy, RefreshCw, Volume2, ArrowUpDown } from 'lucide-react';
+import { Copy, RefreshCw, Volume2, ArrowUpDown, Mic } from 'lucide-react';
 
 const MorseConverter = () => {
   const [inputText, setInputText] = useState('');
   const [outputText, setOutputText] = useState('');
   const [morseMode, setMorseMode] = useState<'encode' | 'decode'>('encode');
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isListening, setIsListening] = useState(false);
 
   useEffect(() => {
     try {
@@ -41,6 +42,47 @@ const MorseConverter = () => {
   const toggleMode = () => {
     setMorseMode(prev => prev === 'encode' ? 'decode' : 'encode');
     handleClear();
+  };
+
+  const startVoiceTyping = async () => {
+    try {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRecognition) {
+        toast.error('Speech recognition is not supported in your browser');
+        return;
+      }
+
+      const recognition = new SpeechRecognition();
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      recognition.lang = 'en-US';
+
+      recognition.onstart = () => {
+        setIsListening(true);
+        toast.info('Listening...');
+      };
+
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        setInputText(prev => prev + (prev ? ' ' : '') + transcript);
+      };
+
+      recognition.onerror = (event) => {
+        console.error('Speech recognition error:', event.error);
+        toast.error('Failed to recognize speech');
+        setIsListening(false);
+      };
+
+      recognition.onend = () => {
+        setIsListening(false);
+      };
+
+      recognition.start();
+    } catch (error) {
+      console.error('Speech recognition error:', error);
+      toast.error('Failed to start speech recognition');
+      setIsListening(false);
+    }
   };
 
   const playMorseCode = () => {
@@ -107,13 +149,25 @@ const MorseConverter = () => {
         </div>
       </CardHeader>
       <CardContent className="space-y-4">
-        <div className="space-y-2">
+        <div className="space-y-2 relative">
           <Textarea
             placeholder={morseMode === 'encode' ? "Type your text here..." : "Enter Morse code (use dots and dashes)..."}
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
             className="min-h-[100px] font-mono"
           />
+          {morseMode === 'encode' && (
+            <Button
+              variant="ghost"
+              size="icon"
+              className="absolute bottom-2 right-2 text-muted-foreground hover:text-primary"
+              onClick={startVoiceTyping}
+              disabled={isListening}
+            >
+              <Mic className={`h-4 w-4 ${isListening ? 'text-primary animate-pulse' : ''}`} />
+              <span className="sr-only">Start voice typing</span>
+            </Button>
+          )}
         </div>
         <div className="space-y-2">
           <Textarea
