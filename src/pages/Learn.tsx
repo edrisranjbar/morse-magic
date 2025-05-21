@@ -2,12 +2,14 @@ import { useState } from 'react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { morseCodeMap } from '@/utils/morseUtils';
-import { Volume2, Star, Trophy, BookOpen, Gamepad2, Dumbbell, ChevronRight, Check, X, Lightbulb, Brain, Clock, Music } from 'lucide-react';
+import { Volume2, Star, Trophy, BookOpen, Gamepad2, Dumbbell, ChevronRight, Check, X, Lightbulb, Brain, Clock, Music, Settings } from 'lucide-react';
 import { Progress } from '@/components/ui/progress';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { Textarea } from '@/components/ui/textarea';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { toast } from 'sonner';
+import { useSettings } from '@/components/ui/settings-dialog';
 
 const Learn = () => {
   const [selectedLevel, setSelectedLevel] = useState<'beginner' | 'intermediate' | 'expert'>('beginner');
@@ -19,7 +21,7 @@ const Learn = () => {
   const [practiceMode, setPracticeMode] = useState<'encode' | 'decode'>('encode');
   const [currentMorse, setCurrentMorse] = useState('');
   const [practiceCount, setPracticeCount] = useState(0);
-  const [speed, setSpeed] = useState(1);
+  const { volume, getSpeed } = useSettings();
 
   const wordsByDifficulty = [
     // Simple words (1-3 letters)
@@ -86,39 +88,72 @@ const Learn = () => {
     ]
   };
 
+  const getProgressiveSpeed = () => {
+    const baseSpeed = getSpeed();
+    return baseSpeed * (1 + (practiceCount * 0.05));
+  };
+
   const playMorseSound = (morse: string, speed = 1) => {
     const audioContext = new AudioContext();
     const oscillator = audioContext.createOscillator();
     const gainNode = audioContext.createGain();
     
+    // Add a compressor for better sound quality
+    const compressor = audioContext.createDynamicsCompressor();
+    compressor.threshold.setValueAtTime(-50, audioContext.currentTime);
+    compressor.knee.setValueAtTime(40, audioContext.currentTime);
+    compressor.ratio.setValueAtTime(12, audioContext.currentTime);
+    compressor.attack.setValueAtTime(0, audioContext.currentTime);
+    compressor.release.setValueAtTime(0.25, audioContext.currentTime);
+    
+    // Create a filter for smoother sound
+    const filter = audioContext.createBiquadFilter();
+    filter.type = 'lowpass';
+    filter.frequency.setValueAtTime(600, audioContext.currentTime);
+    filter.Q.setValueAtTime(1, audioContext.currentTime);
+    
+    // Connect the audio nodes
     oscillator.connect(gainNode);
-    gainNode.connect(audioContext.destination);
+    gainNode.connect(filter);
+    filter.connect(compressor);
+    compressor.connect(audioContext.destination);
     
     oscillator.type = 'sine';
     oscillator.frequency.setValueAtTime(600, audioContext.currentTime);
     gainNode.gain.setValueAtTime(0, audioContext.currentTime);
     
     let time = audioContext.currentTime;
-    const unit = 0.1 / speed;
+    const baseUnit = 0.15;
+    const unit = baseUnit / getProgressiveSpeed();
+    const rampTime = 0.005;
     
     morse.split('').forEach((char) => {
       if (char === '.') {
-        gainNode.gain.setValueAtTime(0.5, time);
-        time += unit;
         gainNode.gain.setValueAtTime(0, time);
+        gainNode.gain.linearRampToValueAtTime(volume, time + rampTime);
         time += unit;
+        gainNode.gain.linearRampToValueAtTime(0, time - rampTime);
+        time += unit * 0.2;
       } else if (char === '-') {
-        gainNode.gain.setValueAtTime(0.5, time);
-        time += unit * 3;
         gainNode.gain.setValueAtTime(0, time);
-        time += unit;
-      } else if (char === ' ') {
+        gainNode.gain.linearRampToValueAtTime(volume, time + rampTime);
         time += unit * 3;
+        gainNode.gain.linearRampToValueAtTime(0, time - rampTime);
+        time += unit * 0.2;
+      } else if (char === ' ') {
+        time += unit * 4;
       }
     });
     
     oscillator.start();
-    oscillator.stop(time);
+    oscillator.stop(time + 0.1);
+    
+    setTimeout(() => {
+      oscillator.disconnect();
+      gainNode.disconnect();
+      filter.disconnect();
+      compressor.disconnect();
+    }, (time + 0.2) * 1000);
   };
 
   const getRandomWord = () => {
@@ -129,7 +164,6 @@ const Learn = () => {
       return;
     }
 
-    // Calculate difficulty level (0-4) based on practice count
     const difficultyLevel = Math.min(Math.floor(practiceCount / 4), 4);
     const words = wordsByDifficulty[difficultyLevel];
     const word = words[Math.floor(Math.random() * words.length)];
@@ -139,8 +173,9 @@ const Learn = () => {
     setUserInput('');
     setShowAnswer(false);
     
-    // Increase speed gradually
-    setSpeed(1 - (practiceCount * 0.02)); // Speed will decrease from 1 to 0.6
+    // Update speed calculation for smoother progression
+    // Speed will increase from 1 to 2 (faster) as practice progresses
+    const speed = getProgressiveSpeed();
   };
 
   const checkAnswer = () => {
@@ -384,7 +419,6 @@ const Learn = () => {
                       setPracticeCount(0);
                       setScore(0);
                       setStreak(0);
-                      setSpeed(1);
                       getRandomWord();
                     }}
                   >
@@ -402,8 +436,7 @@ const Learn = () => {
                         <Button
                           size="lg"
                           onClick={() => playMorseSound(
-                            currentWord.split('').map(c => morseCodeMap[c] || ' ').join(' '),
-                            speed
+                            currentWord.split('').map(c => morseCodeMap[c] || ' ').join(' ')
                           )}
                         >
                           <Volume2 className="mr-2 h-4 w-4" />

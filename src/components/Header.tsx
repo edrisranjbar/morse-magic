@@ -2,6 +2,7 @@ import { Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/hooks/useTheme";
 import { Link } from "react-router-dom";
+import { SettingsDialog } from "@/components/ui/settings-dialog";
 
 const Header = () => {
   const { theme, toggleTheme } = useTheme();
@@ -29,19 +30,22 @@ const Header = () => {
             History
           </Link>
         </nav>
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={toggleTheme}
-          className="transition-transform hover:rotate-90"
-        >
-          {theme === "dark" ? (
-            <Sun className="size-5" />
-          ) : (
-            <Moon className="size-5" />
-          )}
-          <span className="sr-only">Toggle theme</span>
-        </Button>
+        <div className="flex items-center gap-2">
+          <SettingsDialog />
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={toggleTheme}
+            className="transition-transform hover:rotate-90"
+          >
+            {theme === "dark" ? (
+              <Sun className="size-5" />
+            ) : (
+              <Moon className="size-5" />
+            )}
+            <span className="sr-only">Toggle theme</span>
+          </Button>
+        </div>
       </div>
     </header>
   );
