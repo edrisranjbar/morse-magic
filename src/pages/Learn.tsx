@@ -376,9 +376,9 @@ const Learn = () => {
         <TabsContent value="practice" className="space-y-6">
           <Card>
             <CardHeader>
-              <div className="flex items-center justify-between">
-                <h2 className="text-2xl font-bold">Practice Mode</h2>
-                <div className="flex items-center gap-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <h2 className="text-xl sm:text-2xl font-bold">Practice Mode</h2>
+                <div className="flex flex-wrap items-center gap-2 sm:gap-4">
                   <Badge variant="outline" className="flex items-center gap-2">
                     <Trophy className="w-4 h-4" />
                     {score} pts
@@ -387,23 +387,25 @@ const Learn = () => {
                     <Star className="w-4 h-4" />
                     {streak} streak
                   </Badge>
-                  <Badge variant="outline" className="flex items-center gap-2">
-                    Progress: {practiceCount}/20
+                  <Badge variant="outline" className="flex items-center gap-2 whitespace-nowrap">
+                    {practiceCount}/20
                   </Badge>
                 </div>
               </div>
             </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="flex items-center gap-4 justify-center">
+            <CardContent className="space-y-4 sm:space-y-6">
+              <div className="flex items-center gap-2 sm:gap-4 justify-center">
                 <Button
                   variant={practiceMode === 'encode' ? 'default' : 'outline'}
                   onClick={() => setPracticeMode('encode')}
+                  className="flex-1 sm:flex-initial px-3 sm:px-4"
                 >
                   Text → Morse
                 </Button>
                 <Button
                   variant={practiceMode === 'decode' ? 'default' : 'outline'}
                   onClick={() => setPracticeMode('decode')}
+                  className="flex-1 sm:flex-initial px-3 sm:px-4"
                 >
                   Morse → Text
                 </Button>
@@ -411,10 +413,12 @@ const Learn = () => {
 
               {practiceCount >= 20 ? (
                 <div className="text-center space-y-4">
-                  <h3 className="text-2xl font-bold">Practice Complete! 🎉</h3>
+                  <h3 className="text-xl sm:text-2xl font-bold">Practice Complete! 🎉</h3>
                   <p>You've completed all 20 practice examples.</p>
-                  <p>Final Score: {score}</p>
+                  <p className="text-lg font-semibold">Final Score: {score}</p>
                   <Button
+                    size="lg"
+                    className="w-full sm:w-auto"
                     onClick={() => {
                       setPracticeCount(0);
                       setScore(0);
@@ -428,13 +432,14 @@ const Learn = () => {
               ) : (
                 <>
                   <div className="text-center space-y-4">
-                    <div className="text-4xl font-mono min-h-[60px]">
+                    <div className="text-2xl sm:text-4xl font-mono min-h-[48px] sm:min-h-[60px] break-all">
                       {practiceMode === 'encode' ? currentWord : currentMorse || 'Click Start to begin'}
                     </div>
                     {currentWord && (
-                      <div className="flex items-center justify-center gap-4">
+                      <div className="flex items-center justify-center">
                         <Button
                           size="lg"
+                          className="w-full sm:w-auto"
                           onClick={() => playMorseSound(
                             currentWord.split('').map(c => morseCodeMap[c] || ' ').join(' ')
                           )}
@@ -446,7 +451,7 @@ const Learn = () => {
                     )}
                   </div>
 
-                  <div className="space-y-4">
+                  <div className="space-y-3 sm:space-y-4">
                     <Progress value={(practiceCount / 20) * 100} className="w-full" />
                     
                     <Textarea
@@ -456,29 +461,29 @@ const Learn = () => {
                       }
                       value={userInput}
                       onChange={(e) => setUserInput(e.target.value)}
-                      className="font-mono text-lg"
+                      className="font-mono text-base sm:text-lg min-h-[80px] sm:min-h-[100px] resize-none"
                     />
 
                     {showAnswer && (
-                      <div className="p-4 rounded bg-secondary/20">
-                        <div className="flex items-center gap-2 mb-2">
+                      <div className="p-3 sm:p-4 rounded bg-secondary/20 space-y-2 sm:space-y-3 text-sm sm:text-base">
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-2">
                           <strong>Correct Answer:</strong>
-                          <code className="bg-secondary px-2 py-1 rounded">
+                          <code className="bg-secondary px-2 py-1 rounded break-all">
                             {practiceMode === 'encode' ? currentMorse : currentWord}
                           </code>
                         </div>
-                        <div className="flex items-center gap-2">
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-2">
                           <strong>Your Answer:</strong>
-                          <code className="bg-secondary px-2 py-1 rounded">
+                          <code className="bg-secondary px-2 py-1 rounded break-all">
                             {userInput}
                           </code>
                         </div>
                       </div>
                     )}
 
-                    <div className="flex gap-4">
+                    <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                       <Button
-                        className="flex-1"
+                        className="w-full"
                         size="lg"
                         onClick={getRandomWord}
                       >
@@ -486,7 +491,7 @@ const Learn = () => {
                         <ChevronRight className="ml-2 h-4 w-4" />
                       </Button>
                       <Button
-                        className="flex-1"
+                        className="w-full"
                         size="lg"
                         onClick={checkAnswer}
                         disabled={!currentWord || !userInput}

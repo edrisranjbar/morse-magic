@@ -11,11 +11,11 @@ const Convert = () => {
         <link rel="canonical" href="/convert" />
       </Helmet>
       
-      <div className="container py-8">
+      <div className="container px-4 py-4 sm:py-8">
         <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold mb-2">Morse Code Converter</h1>
-            <p className="text-muted-foreground">
+          <div className="text-center mb-4 sm:mb-8">
+            <h1 className="text-2xl sm:text-3xl font-bold mb-2">Morse Code Converter</h1>
+            <p className="text-sm sm:text-base text-muted-foreground px-2">
               Convert between text and Morse code instantly. Use dots (.) and dashes (-) for Morse code input.
             </p>
           </div>

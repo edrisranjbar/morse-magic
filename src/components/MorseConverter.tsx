@@ -128,13 +128,13 @@ const MorseConverter = () => {
 
   return (
     <Card className="w-full max-w-3xl mx-auto shadow-lg">
-      <CardHeader>
-        <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-semibold bg-gradient-to-r from-primary/80 to-primary bg-clip-text text-transparent">
+      <CardHeader className="pb-4 sm:pb-6">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+          <h2 className="text-xl sm:text-2xl font-semibold bg-gradient-to-r from-primary/80 to-primary bg-clip-text text-transparent">
             Morse Code Converter
           </h2>
-          <div className="flex items-center space-x-2">
-            <span className="text-sm text-muted-foreground">
+          <div className="flex items-center gap-2">
+            <span className="text-xs sm:text-sm text-muted-foreground">
               {morseMode === 'encode' ? 'Text → Morse' : 'Morse → Text'}
             </span>
             <Button
@@ -148,13 +148,13 @@ const MorseConverter = () => {
           </div>
         </div>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-3 sm:space-y-4">
         <div className="space-y-2 relative">
           <Textarea
             placeholder={morseMode === 'encode' ? "Type your text here..." : "Enter Morse code (use dots and dashes)..."}
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
-            className="min-h-[100px] font-mono"
+            className="min-h-[80px] sm:min-h-[100px] font-mono text-sm sm:text-base resize-none"
           />
           {morseMode === 'encode' && (
             <Button
@@ -173,17 +173,17 @@ const MorseConverter = () => {
           <Textarea
             readOnly
             value={outputText}
-            className="min-h-[100px] font-mono bg-secondary/50"
+            className="min-h-[80px] sm:min-h-[100px] font-mono text-sm sm:text-base bg-secondary/50 resize-none"
             placeholder="Output will appear here..."
           />
         </div>
       </CardContent>
-      <CardFooter className="justify-between">
-        <div className="flex space-x-2">
+      <CardFooter className="flex flex-col sm:flex-row sm:justify-between gap-3">
+        <div className="flex w-full sm:w-auto space-x-2">
           <Button
             variant="outline"
             onClick={handleClear}
-            className="transition-transform active:scale-95"
+            className="flex-1 sm:flex-initial transition-transform active:scale-95"
           >
             <RefreshCw className="mr-2 h-4 w-4" />
             Clear
@@ -191,7 +191,7 @@ const MorseConverter = () => {
           <Button
             variant="outline"
             onClick={handleCopyToClipboard}
-            className="transition-transform active:scale-95"
+            className="flex-1 sm:flex-initial transition-transform active:scale-95"
           >
             <Copy className="mr-2 h-4 w-4" />
             Copy
@@ -201,7 +201,7 @@ const MorseConverter = () => {
           <Button
             onClick={playMorseCode}
             disabled={isPlaying || !outputText}
-            className="transition-transform active:scale-95"
+            className="w-full sm:w-auto transition-transform active:scale-95"
           >
             <Volume2 className="mr-2 h-4 w-4" />
             {isPlaying ? 'Playing...' : 'Play Sound'}
