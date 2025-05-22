@@ -85,8 +85,6 @@ const Index = () => {
             <div className="text-center space-y-6 sm:space-y-8">
               <div className="relative inline-flex items-center gap-2 rounded-full px-4 py-1 text-sm leading-6 text-muted-foreground ring-1 ring-border hover:ring-foreground/20 duration-150">
                 <span className="relative">
-                  <span className="absolute -left-1 top-1/2 h-[2px] w-3 bg-primary/50 -translate-y-1/2 rounded-full animate-morse-dash" />
-                  <span className="absolute -right-1 top-1/2 h-[2px] w-1 bg-primary/50 -translate-y-1/2 rounded-full animate-morse-dot" />
                   Discover the art of Morse code
                 </span>
               </div>
