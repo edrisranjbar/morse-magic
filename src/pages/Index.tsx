@@ -3,6 +3,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { ArrowRight, Sparkles, Zap, Brain, Volume2, Code2, Blocks, PlayCircle, InfoIcon } from "lucide-react";
 import { Helmet } from 'react-helmet-async';
+import DonationSection from "@/components/DonationSection";
+import MorseHistorySection from "@/components/MorseHistorySection";
 
 const Index = () => {
   const features = [
@@ -81,7 +83,7 @@ const Index = () => {
           <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-background to-transparent" />
           <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-background to-transparent" />
 
-          <div className="container mx-auto px-4 py-12 sm:py-24 lg:py-32">
+          <div className="container mx-auto px-4 py-12 sm:py-24">
             <div className="text-center space-y-6 sm:space-y-8">
               <div className="relative inline-flex items-center gap-2 rounded-full px-4 py-1 text-sm leading-6 text-muted-foreground ring-1 ring-border hover:ring-foreground/20 duration-150">
                 <span className="relative">
@@ -188,6 +190,12 @@ const Index = () => {
             <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl" />
           </Card>
         </div>
+
+        {/* Morse History Section */}
+        <MorseHistorySection />
+
+        {/* Donation Section */}
+        <DonationSection />
       </div>
     </>
   );
