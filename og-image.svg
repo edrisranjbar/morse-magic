@@ -1,0 +1,37 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#18181B"/>
+  
+  <!-- Background Pattern -->
+  <g opacity="0.1">
+    <circle cx="200" cy="315" r="8" fill="#ffffff"/>
+    <rect x="220" y="311" width="32" height="8" rx="4" fill="#ffffff"/>
+    <circle cx="280" cy="315" r="8" fill="#ffffff"/>
+    
+    <circle cx="920" cy="315" r="8" fill="#ffffff"/>
+    <rect x="940" y="311" width="32" height="8" rx="4" fill="#ffffff"/>
+    <circle cx="1000" cy="315" r="8" fill="#ffffff"/>
+  </g>
+  
+  <!-- Main Content -->
+  <g transform="translate(400, 200)">
+    <!-- Logo -->
+    <g transform="scale(2)">
+      <circle cx="40" cy="40" r="8" fill="#ffffff"/>
+      <rect x="56" y="36" width="32" height="8" rx="4" fill="#ffffff"/>
+      <circle cx="96" cy="40" r="8" fill="#ffffff"/>
+    </g>
+    
+    <!-- Text -->
+    <text x="200" y="100" fill="white" font-family="system-ui" font-size="48" font-weight="bold" text-anchor="middle">
+      Morse Magic
+    </text>
+    <text x="200" y="150" fill="#A1A1AA" font-family="system-ui" font-size="24" text-anchor="middle">
+      Modern Morse Code Converter
+    </text>
+  </g>
+  
+  <!-- Author -->
+  <text x="600" y="550" fill="#A1A1AA" font-family="system-ui" font-size="20" text-anchor="middle">
+    by Edris Ranjbar
+  </text>
+</svg> 
