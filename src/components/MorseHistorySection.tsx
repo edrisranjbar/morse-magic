@@ -12,7 +12,7 @@ const MorseHistorySection = () => {
         <div className="grid md:grid-cols-2 gap-8 items-center">
           <div className="relative aspect-square rounded-lg overflow-hidden bg-zinc-800">
             <img
-              src="/samuel-morse.jpg"
+              src="/morse-magic/samuel-morse.jpg"
               alt="Samuel Morse - Inventor of Morse Code"
               className="w-full h-full object-top"
             />
