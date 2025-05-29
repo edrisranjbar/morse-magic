@@ -19,7 +19,7 @@ const App = () => (
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        <BrowserRouter>
+        <BrowserRouter basename="/morse-magic/">
           <Routes>
             <Route element={<Layout />}>
               <Route path="/" element={<Index />} />
