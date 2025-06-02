@@ -94,7 +94,7 @@ const Index = () => {
               <div className="mx-auto max-w-2xl space-y-4">
                 <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/50 relative">
                   Master Morse Code
-                  <br className="hidden sm:block" />
+                  <br />
                   The Modern Way
                 </h1>
                 <p className="text-base sm:text-lg leading-8 text-muted-foreground px-4 sm:px-0 relative">
